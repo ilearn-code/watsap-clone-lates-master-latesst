@@ -93,7 +93,7 @@
       <div class="input_message_div">
 
         <form id="myForm" ng-submit="sendNewMessage()">
-          <input type="text" id="input_message_id" name="msg" placeholder="Type a message" ng-model="newMsg" ng-disabled="isInput">
+          <input type="text" id="input_message_id" name="msg" placeholder="Type a message..." ng-model="newMsg" ng-disabled="isInput">
           <input type="hidden" name="receiver_id" id="receiverIdField" ng-model="receiverId">
           <button type="submit" id="input_user_message_button" ng-disabled="isInput" ng-if="newMsg">
             <i class="uil uil-message"></i>
