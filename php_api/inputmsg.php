@@ -2,6 +2,7 @@
 
 require "../db_conn.php";
 session_start();
+
 if (isset($_SESSION['sender_id']) && isset($_POST["receiver_id"]) && isset($_POST['msg'])) {
     $m = $_POST['msg'];
     $receiver_id = $_POST["receiver_id"];
@@ -23,7 +24,7 @@ if (isset($_SESSION['sender_id']) && isset($_POST["receiver_id"]) && isset($_POS
     date_default_timezone_set('Asia/Kolkata');
 
     if (mysqli_stmt_execute($statement)) {
-        echo "success";
+        echo "Success=> id:".$_POST['receiver_id'];
     } else {
         echo "Error: " . $query . "<br>" . mysqli_error($conn);
     }
