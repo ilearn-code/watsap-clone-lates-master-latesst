@@ -1,17 +1,20 @@
 angular.module('index-app', [])
-  .controller('index-controller', function ($rootScope, $scope, $document, $http, $timeout, $window) {
+  .controller('index-controller', function ($rootScope, $scope, $document, $http, $timeout, $interval, $window) {
+
+    // getting current user details----------------------------------------------------------
     $rootScope.currentUserId = $window.localStorage.getItem('sender_id');
     $rootScope.currentUserImage = $window.localStorage.getItem('img_path');
     $rootScope.currentUserName = $window.localStorage.getItem('username');
     $rootScope.currentUserEmail = $window.localStorage.getItem('email');
     // console.log($rootScope.currentUserId, "sender id")
 
-    // redirect to login pages
+    // redirect to login pages----------------------------------------------------------
     if (!$rootScope.currentUserId || !$rootScope.currentUserName || !$rootScope.currentUserEmail) {
       $window.location.href = "/login";
     }
+    // end
 
-    // logout using logout button
+    // logout using logout button----------------------------------------------------------
     $scope.logOut = function () {
       $window.location.href = "/login";
 
@@ -19,10 +22,10 @@ angular.module('index-app', [])
       $window.localStorage.removeItem('img_path');
       $window.localStorage.removeItem('username');
       $window.localStorage.removeItem('email');
-
     }
+    // end
 
-    // showing current user profile details popup
+    // showing current user profile details popup----------------------------------------------------------
     $scope.isPopUp = false;
 
     $scope.showProfilePopup = function () {
@@ -34,14 +37,14 @@ angular.module('index-app', [])
     }
     // end
 
-    // showing dropdown menu
+    // showing dropdown menu----------------------------------------------------------
     $scope.isDropdownMenu = false;
     $scope.showDropdownMenu = function () {
       $scope.isDropdownMenu = !$scope.isDropdownMenu;
     }
     // end
 
-    // hide drpdown and popup when click on body
+    // hide drpdown and popup when click on body----------------------------------------------------------
     $document.on('click', function (event) {
 
       // hide dropdown 
@@ -68,7 +71,7 @@ angular.module('index-app', [])
     });
     // end
 
-    // list user fetch (showing all user )
+    // list user fetch (showing all user )----------------------------------------------------------
     $http.get("php_api/list_user.php")
       .then(res => {
         $scope.userList = [];
@@ -85,7 +88,7 @@ angular.module('index-app', [])
       })
     // end
 
-    // showing list based on input filter
+    // showing list based on input filter----------------------------------------------------------
     $scope.filterUser = function () {
       if ($scope.filterName) {
         $scope.FilteredUserList = $scope.userList.filter(one => one.name.includes($scope.filterName.toLowerCase()));
@@ -101,7 +104,7 @@ angular.module('index-app', [])
     }
     // end
 
-    // showing particular chats
+    // showing particular chats----------------------------------------------------------
     $scope.isInput = true;
     $scope.getChats = function (userId, name, img_path) {
 
@@ -128,10 +131,26 @@ angular.module('index-app', [])
       $timeout(() => {
         document.getElementById('input_message_id').focus();
       }, 0)
+
+      // getting latest chat every 3 seconds
+      $interval(() => {
+        $http.get(`php_api/getUserData.php?userId=${userId}`)
+          .then(res => {
+            $scope.allMessages = res.data;
+
+            // Scroll to the bottom after the DOM updates
+            $timeout(function () {
+              userDataElement.scrollTop = userDataElement.scrollHeight;
+            }, 0);
+
+          }).catch(err => {
+            console.log(err, "some error in API");
+          });
+      }, 3000)
     };
     // end
 
-    // sending latest message
+    // sending latest message----------------------------------------------------------
     $scope.sendNewMessage = function () {
 
       if ($scope.newMsg) {
@@ -163,6 +182,7 @@ angular.module('index-app', [])
                 $timeout(function () {
                   userDataElement.scrollTop = userDataElement.scrollHeight;
                 }, 0);
+
               }).catch(err => {
                 console.log(err, "some error in API");
               });

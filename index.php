@@ -14,10 +14,7 @@
 
   <!-- angular JS cdn -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-  <!-- <script>
-    const senderIdSession = localStorage.getItem('sender_id');
-    // console.log(senderIdSession);
-  </script> -->
+  
 </head>
 
 <body ng-app="index-app" ng-controller="index-controller" ng-cloak>
