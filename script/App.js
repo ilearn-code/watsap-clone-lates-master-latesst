@@ -1,14 +1,29 @@
 angular.module('index-app', [])
-  .controller('index-controller', function ($rootScope, $scope, $document, $http, $timeout) {
-
-    $rootScope.currentUserId = localStorage.getItem('sender_id');
+  .controller('index-controller', function ($rootScope, $scope, $document, $http, $timeout, $window) {
+    $rootScope.currentUserId = $window.localStorage.getItem('sender_id');
+    $rootScope.currentUserImage = $window.localStorage.getItem('img_path');
+    $rootScope.currentUserName = $window.localStorage.getItem('username');
+    $rootScope.currentUserEmail = $window.localStorage.getItem('email');
     // console.log($rootScope.currentUserId, "sender id")
+
+    // redirect to login pages
+    if (!$rootScope.currentUserId || !$rootScope.currentUserName || !$rootScope.currentUserEmail) {
+      $window.location.href = "/login";
+    }
+
+    // logout using logout button
+    $scope.logOut = function () {
+      $window.location.href = "/login";
+
+      $window.localStorage.removeItem('sender_id');
+      $window.localStorage.removeItem('img_path');
+      $window.localStorage.removeItem('username');
+      $window.localStorage.removeItem('email');
+
+    }
 
     // showing current user profile details popup
     $scope.isPopUp = false;
-    $scope.currentUserImage = localStorage.getItem('img_path');
-    $scope.currentUserName = localStorage.getItem('username');
-    $scope.currentUserEmail = localStorage.getItem('email');
 
     $scope.showProfilePopup = function () {
       $scope.isPopUp = !$scope.isPopUp;
@@ -110,9 +125,9 @@ angular.module('index-app', [])
           console.log(err, "some error in API");
         });
 
-        $timeout(()=>{
-          document.getElementById('input_message_id').focus();
-        },0)
+      $timeout(() => {
+        document.getElementById('input_message_id').focus();
+      }, 0)
     };
     // end
 

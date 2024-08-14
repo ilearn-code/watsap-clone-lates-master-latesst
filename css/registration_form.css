@@ -3,66 +3,91 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  scroll-behavior: smooth;
 }
 
-.loginForm {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  overflow: auto;
+body {
+  font-family: sans-serif;
+}
+
+.registeration__wrapper , .loginForm__wrapper{
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-content: center;
+}
+
+.registeration, .loginForm {
+  display: grid;
+  grid-template-columns: 3fr 4fr;
+  
+  width: 80vw;
   background: #f7f7f7;
-  /* background-color: rgba(0,0,0,0.4); */
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.registeration__image, .loginForm__image {
+  height: 90vh;
+}
+
+.registeration__image img, .loginForm__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 
 
-
-.centered {
+.registeration__form, .loginForm__form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #fff;
   height: 90vh;
-  width: 70vw;
-  border-radius: 16px;
+  padding: 2rem 3rem;
+}
 
-  box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1), 0 32px 64px -48px rgba(0, 0, 0, 0.5);
+.registeration__form h1 , .loginForm__form h1{
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 input {
+  font-size: 1rem;
   border: 1px solid #ccc;
-  border-radius: 20px;
-  padding: 20px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  border-radius: 0.5rem;
+  padding: .5rem 1rem;
+  margin-top: .5rem;
+  margin-bottom: 1rem;
   width: 100%;
+}
+
+input:focus {
+  outline-color: #4CAF50;
 }
 
 button {
   border: 1px solid #ccc;
-  border-radius: 20px;
-  padding: 20px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-top: .5rem;
+  margin-bottom: 1rem;
   width: 100%;
-  margin-top: 20px;
   background: #4CAF50;
   color: #fff;
-  font-size: 17px;
+  font-size: 1.125rem;
+  cursor: pointer;
 }
 
 
-a {
-  font-size: 17px;
+.registeration a, .loginForm a {
+  font-size: 1rem;
   color: #4CAF50;
   text-decoration: none !important;
 }
 
-a:hover {
+.registeration a:hover, .loginForm a:hover {
   text-decoration: underline !important;
 }
 
@@ -71,55 +96,57 @@ span {
 }
 
 
-#errorMessage
-{
-color: red;
+#errorMessage {
+  color: red;
 }
-
-
-
 
 
 
 /* Media queries for tablet screens */
 @media screen and (max-width: 768px) {
-
-  /* Adjust height and width of .centered div */
-  .centered {
+  .registeration__wrapper {
     height: auto;
-    width: 90vw;
-    box-shadow:none;
+    padding: 1rem;
+  }
+  .loginForm__wrapper {
+    padding: 1rem;
+  }
+
+  .registeration , .loginForm{
+    grid-template-columns: 1fr;
+  }
+
+  .registeration__image , .loginForm__image{
+    display: none;
+  }
+
+  .registeration__form , .loginForm__form{
+    height: auto;
+    padding: 2rem 1rem;
   }
 }
 
 /* Media queries for mobile screens */
-@media screen and (max-width: 480px) {
-
-  /* Adjust width of .centered div */
-  .centered {
-    width: 100%;
-
+@media screen and (max-width: 525px) {
+  .registeration , .loginForm{
+    max-width: auto;
+  }
+  .registeration__form h1 , .loginForm__form h1{
+    text-align: left;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
   }
 
-  .loginForm {
-    justify-content: flex-start;
-    height: auto;
-
+  .registeration__form , .loginForm__form{
+    align-items: start;
   }
-}
-
-/* Media queries for screens with smaller height */
-@media screen and (max-height: 600px) {
-
-  /* Adjust height of .loginForm div */
-  .centered {
-    width: 100%;
-
+  .registeration__form label, .loginForm__form label{
+    font-size: .875rem;
   }
-
-  .loginForm {
-    justify-content: flex-start;
-    height: auto;
-
+  .registeration__form input, .loginForm__form input{
+    font-size: .875rem;
+  }
+  .registeration__form button, .loginForm__form button{
+    font-size: 1rem;
   }
 }

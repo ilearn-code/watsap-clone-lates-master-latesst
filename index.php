@@ -11,13 +11,13 @@
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
   <title>Chatting | APP</title>
   <link rel="shortcut icon" href="#" type="image/x-icon">
+
+  <!-- angular JS cdn -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-  <script>
+  <!-- <script>
     const senderIdSession = localStorage.getItem('sender_id');
     // console.log(senderIdSession);
-  </script>
-
-
+  </script> -->
 </head>
 
 <body ng-app="index-app" ng-controller="index-controller" ng-cloak>
@@ -38,7 +38,7 @@
           <i class="fi fi-rr-menu-dots-vertical"></i>
         </a>
         <div class="dropdown-content" ng-show="isDropdownMenu">
-          <a id="logout">Logout</a>
+          <a id="logout" ng-click="logOut()">Logout</a>
           <a id="profileUpdate" ng-click="showProfilePopup()">Profile</a>
         </div>
       </div>
@@ -53,6 +53,7 @@
     </div>
 
   </header>
+
   <div class="c1">
     <div class="l1">
       <div class="search">
@@ -82,7 +83,7 @@
 
         <div class="message" ng-repeat="message in allMessages" ng-class="message.sender_id != receiverId ? 'self' : 'other'">
           <div class="message__wrapper">
-            <img width="48" height="48" ng-src="{{receiverImg}}" alt="{{receiverName}}" class="receiverImg"> 
+            <img width="48" height="48" ng-src="{{receiverImg}}" alt="{{receiverName}}" class="receiverImg">
             <span class="message__content">{{message.message}}</span>
             <img width="48" height="48" ng-src="{{currentUserImage}}" alt="{{currentUserName}}" class="currentUserImage">
           </div>
@@ -125,12 +126,12 @@
 
       </div>
     </div>
+  </div>
+  
 
-    <!-- JS files -->
+  <!-- JS files -->
+  <script src="script/App.js"></script>
 
-    <script src="script/App.js"></script>
-    <script src="script\login_redirect_page.js"></script>
-    <script src="script\logout_fetch.js"></script>
 
 </body>
 
